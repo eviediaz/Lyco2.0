@@ -1,6 +1,5 @@
 {
-  "name": "mantine-minimal-next-template",
-  "version": "0.1.0",
+  "name": "lyco2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,24 +8,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mantine/core": "^7.1.3",
-    "@mantine/hooks": "^7.1.3",
-    "@tabler/icons-react": "^2.39.0",
-    "icons-react": "^3.7.1",
-    "next": "13.4.4",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.17",
+    "next": "14.0.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tabler-icons-react": "^1.56.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.7",
-    "@types/react-dom": "18.2.4",
-    "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
-    "postcss": "^8.4.31",
-    "postcss-preset-mantine": "^1.8.0",
-    "postcss-simple-vars": "^7.0.1",
-    "typescript": "5.0.4"
+    "@types/node": "^20.8.10",
+    "@types/react": "^18.2.36",
+    "eslint": "8.53.0",
+    "eslint-config-next": "14.0.1",
+    "typescript": "^5.2.2"
   }
 }
