@@ -14,12 +14,12 @@ function Home() {
         e.preventDefault();
         const id = uuidV4();
         setRoomId(id);
-        toast.success("Created a new room");
+        toast.success("Crear Sesión de Clase");
     };
 
     const joinRoom = () => {
         if (!roomId || !username) {
-            toast.error("Room ID & username is required!");
+            toast.error("Necesario un Código de Clase y Nombre de Usuario");
             return;
         }
 
@@ -32,7 +32,7 @@ function Home() {
     };
 
     const handleInputEnter = (e) => {
-        if (e.code === "Enter") {
+        if (e.code === "Ingresar") {
             joinRoom();
         }
     };
@@ -42,13 +42,13 @@ function Home() {
 
             <div className="formWrapper">
                 <img className="homePageLogo" src="/logo.png" alt="code-sync-logo" />
-                <h4 className="mainLabel">Paste invitation ROOM ID</h4>
+                <h4 className="mainLabel">Código de Sesión</h4>
 
                 <div className="inputGroup">
                     <input
                         type="text"
                         className="inputBox"
-                        placeholder="ROOM ID"
+                        placeholder="ID Sesion"
                         onChange={(e) => { setRoomId(e.target.value) }}
                         value={roomId}
                         onKeyUp={handleInputEnter}
@@ -57,7 +57,7 @@ function Home() {
                     <input
                         type="text"
                         className="inputBox"
-                        placeholder="USERNAME"
+                        placeholder="Nombre"
                         onChange={(e) => { setUsername(e.target.value) }}
                         value={username}
                         onKeyUp={handleInputEnter}
@@ -65,11 +65,11 @@ function Home() {
 
                     <button className="btn joinBtn" onClick={joinRoom}>JOIN</button>
 
-                    <span className="createInfo">If you don't have an invite code then create &nbsp;
+                    <span className="createInfo">SOLO SI ERES PROFE &nbsp;
                         <a
                             onClick={createNewRoom}
                             href="google.com"
-                            className="createNewBtn">new room
+                            className="createNewBtn">Crear Código de aula
                         </a>
                     </span>
                 </div>
@@ -77,7 +77,11 @@ function Home() {
 
 
             <footer>
-                <h4>Built by &nbsp;<a href="https://github.com/Mohitur669" target='_blank' rel="noreferrer">Mohitur</a></h4>
+                <h4>
+                    &nbsp; <a href="https://github.com/eviediaz" target='_blank' rel="noreferrer">Dennis Ceballos</a>
+                    &nbsp;,
+                    &nbsp; <a href="https://github.com/DennisCeballos" target='_blank' rel="noreferrer">Evie Diaz</a>
+                </h4>
             </footer>
 
         </div>

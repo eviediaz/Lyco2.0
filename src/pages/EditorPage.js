@@ -37,8 +37,8 @@ function EditorPage() {
                 ACTIONS.JOINED,
                 ({ clients, username, socketId }) => {
                     if (username !== location.state?.username) {
-                        toast.success(`${username} joined the room.`);
-                        console.log(`${username} joined`);
+                        toast.success(`${username} ingresó a la sesión.`);
+                        console.log(`${username} se unió`);
                     }
 
                     // Update the clients list with a unique list of clients using socketId
@@ -58,7 +58,7 @@ function EditorPage() {
             // listening for disconnected
             socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
                 if (username) {
-                    toast.success(`${username} left the room`);
+                    toast.success(`${username} salió de la sesión`);
                     setClients((prevClients) => {
                         return prevClients.filter(client => client.socketId !== socketId);
                     });
@@ -82,9 +82,9 @@ function EditorPage() {
     async function copyRoomId() {
         try {
             await navigator.clipboard.writeText(roomId);
-            toast.success('Room ID copied to clipboard');
+            toast.success('ID de Aula copiado al portapapeles');
         } catch (error) {
-            toast.error('Failed to copy room ID');
+            toast.error('Error al copiar al portapapeles');
         }
     }
 
@@ -112,7 +112,7 @@ function EditorPage() {
                         <img className="logoImage" src="/logo.png" alt="logo" />
                     </div>
 
-                    <h3>Connected</h3>
+                    <h3>Conectados</h3>
 
                     <div className="clientsList">
                         {
@@ -123,8 +123,8 @@ function EditorPage() {
                     </div>
                 </div>
 
-                <button className="btn copyBtn" onClick={copyRoomId} >Copy ROOM ID</button>
-                <button className="btn leaveBtn" onClick={leaveRoom} >Leave</button>
+                <button className="btn copyBtn" onClick={copyRoomId} >Copiar ID de Sesion</button>
+                <button className="btn leaveBtn" onClick={leaveRoom} >Salir</button>
             </div>
 
             <div className="editorWrap">
