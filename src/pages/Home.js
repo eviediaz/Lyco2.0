@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { v4 as uuidV4 } from 'uuid';
+import { generate } from 'randomstring';
+
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ function Home() {
 
     const createNewRoom = (e) => {
         e.preventDefault();
-        const id = uuidV4();
+        const id = generate(6);
         setRoomId(id);
         toast.success("Crear Sesión de Clase");
     };
@@ -69,7 +70,7 @@ function Home() {
                         <a
                             onClick={createNewRoom}
                             href="google.com"
-                            className="createNewBtn">Crear Código de aula
+                            className="createNewBtn">Crear Código de Sesión
                         </a>
                     </span>
                 </div>
