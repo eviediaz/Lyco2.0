@@ -22,8 +22,8 @@ function EditorPage() {
             socketRef.current.on('connect_failed', (err) => handleErrors(err));
 
             function handleErrors(e) {
-                console.log('socket error', e);
-                toast.error('Socket connection failed, try again later.');
+                console.log('problema con los sockets', e);
+                toast.error('Error de conexión por sockets, por favor intenta de nuevo luego.');
                 reactNavigator('/');
             }
 
