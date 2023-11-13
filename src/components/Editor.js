@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/dracula.css';
-import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/python/python';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import ACTIONS from '../actions/Actions';
@@ -14,11 +14,19 @@ function Editor({ socketRef, roomId, onCodeChange }) {
         // Initialize CodeMirror instance
         const textarea = document.getElementById('realtimeEditor');
         editorRef.current = CodeMirror.fromTextArea(textarea, {
-            mode: 'javascript',
-            theme: 'dracula',
-            autoCloseTags: true,
-            autoCloseBrackets: true,
+            //Configuraciones para el Editor
+            mode: 'python',
+            //theme: '',
             lineNumbers: true,
+            lineWrapping: true,
+            autocorrect: true
+
+            //lineWrapping: true,
+            //tabSize: 2,
+
+
+            //autoCloseTags: true,
+            //autoCloseBrackets: true,
         });
 
         // Handle local code changes and emit to other clients
