@@ -15,6 +15,15 @@ function EditorPage() {
     const reactNavigator = useNavigate();
     const [ clients, setClients ] = useState([]);
 
+
+    const languagesAvailable = ["javascript", "java", "c_cpp", "python", "typescript", "golang", "yaml", "html"]
+    const [language, setLanguage] = useState(() => "javascript");
+    function handleLanguageChange(e) {
+        setLanguage(e.target.value)
+        socketRef.emit("update language", { roomId, languageUsed: e.target.value })
+        socketRef.emit("syncing the language", { roomId: roomId })
+    }
+
     useEffect(() => {
         const init = async () => {
             socketRef.current = await initSocket();
@@ -64,6 +73,10 @@ function EditorPage() {
                     });
                 }
             });
+
+            socketRef.current.on("on language change", ({ languageUsed }) => {
+                setLanguage(languageUsed)
+            })
         };
 
         init();
@@ -74,6 +87,7 @@ function EditorPage() {
                 socketRef.current.disconnect();
                 socketRef.current.off(ACTIONS.JOINED);
                 socketRef.current.off(ACTIONS.DISCONNECTED);
+                socketRef.current.off("on language change");
             }
         }
     }, [ location.state?.username, reactNavigator, roomId ]);
@@ -105,8 +119,24 @@ function EditorPage() {
     }
 
     return (
+        <>
+        <div className="languageFieldWrapper">
+            <select className="languageField" name="language" id="language" value={language} onChange={handleLanguageChange}>
+              {languagesAvailable.map(eachLanguage => (
+                <option key={eachLanguage} value={eachLanguage}>{eachLanguage}</option>
+              ))}
+            </select>
+          </div>
         <div className="mainWrap">
+            <div className="editorWrap">
+                <Editor
+                    socketRef={socketRef}
+                    roomId={roomId}
+                    onCodeChange={(code) => { codeRef.current = code }}
+                />
+            </div>
             <div className="aside">
+                
                 <div className="asideInner">
                     <div className="logo">
                         <img className="logoImage" src="/logo.png" alt="logo" />
@@ -123,18 +153,15 @@ function EditorPage() {
                     </div>
                 </div>
 
+
                 <button className="btn copyBtn" onClick={copyRoomId} >Copiar ID de Sesion</button>
                 <button className="btn leaveBtn" onClick={leaveRoom} >Salir</button>
             </div>
 
-            <div className="editorWrap">
-                <Editor
-                    socketRef={socketRef}
-                    roomId={roomId}
-                    onCodeChange={(code) => { codeRef.current = code }}
-                />
-            </div>
+
+            
         </div>
+        </>
     )
 }
 

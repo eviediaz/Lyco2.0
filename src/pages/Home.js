@@ -24,7 +24,7 @@ function Home() {
         }
 
         // redirect
-        navigate(`/editor/${roomId}`, {
+        navigate(`/room/${roomId}`, {
             state: {
                 username
             },

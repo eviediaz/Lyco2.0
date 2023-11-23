@@ -125,12 +125,13 @@ footer a:hover {
 
 .mainWrap {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 70% 1fr;
+    padding: 2.5%;
 }
 
 .aside {
     background: #1c1e29;
-    padding: 16px;
+    padding: 20px;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -178,9 +179,12 @@ footer a:hover {
 }
 
 .CodeMirror {
-    font-family: 'Cascadia Code', sans-serif !important;
+    /*font-family: 'Cascadia Code', sans-serif !important;*/
     min-height: calc(100vh - 20px);
+    min-width: calc(100vh - 20px);
     font-size: 19px;
     padding-top: 20px;
+    padding-left: 20px;
     line-height: 1.2;
+    min-width: 70%;
 }
