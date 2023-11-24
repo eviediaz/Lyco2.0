@@ -102,13 +102,16 @@ io.on("connection", function (socket) {
   });
 
   // for other users in room to view the changes
-  socket.on("update code", ({ roomId, code }) => {
+  socket.on("update code", ({ roomId, code, fileName }) => {
     console.log("Enviando update de Code")
     if (roomId in roomID_to_Code_Map) {
       roomID_to_Code_Map[roomId]["code"] = code;
+      roomID_to_Code_Map[roomId]["fileName"] = fileName;
     } else {
-      roomID_to_Code_Map[roomId] = { code };
+      roomID_to_Code_Map[roomId] = { code, fileName };
     }
+
+    io.in(roomId).emit("on code change", { code, fileName });
   });
 
   // for user editing the code to reflect on his/her screen

@@ -26,7 +26,7 @@ import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 
 
-export const getLangs = (name) => {
+export const getLangs = (nam) => {
   const langs = {
     javascript,
     jsx: () => javascript({ jsx: true }),
@@ -42,7 +42,7 @@ export const getLangs = (name) => {
     xml,
     php
   };
-  return langs[name];
+  return langs[nam];
 };
 const languagesAvailable = [
   "javascript",
@@ -82,18 +82,23 @@ const temasAvailable = [
   "vscodeDark",
 ];
 
+
 export default function Room({ socket }) {
   const navigate = useNavigate();
   const { roomId } = useParams();
   const [fetchedUsers, setFetchedUsers] = useState(() => []);
   const [fetchedCode, setFetchedCode] = useState(() => "");
-  const [language, setLanguage] = useState(getLangs("javascript"));
+  const [language, setLanguage] = useState(getLangs('javascript'));
   const [tema, setTema] = useState(getTemas("githubDark"));
-
+  
   const [ventanas, setVentanas] = useState({
     primero: "",
   });
-
+  
+  function cambiarLang(nuevo){
+    setLanguage('');
+    setLanguage(getLangs(nuevo))
+  }
   // Función para agregar o editar un elemento en el diccionario de ventanas
   const agregarEditarVentana = (clave, valor) => {
     setVentanas((prevDiccionario) => ({
@@ -104,7 +109,7 @@ export default function Room({ socket }) {
 
   function onChange(newValue) {
     setFetchedCode(newValue);
-    socket.emit("update code", { roomId, code: newValue });
+    socket.emit("update code", { roomId, code: newValue, fileName:'default' });
     socket.emit("syncing the code", { roomId: roomId });
   }
 
@@ -138,10 +143,11 @@ export default function Room({ socket }) {
     });
 
     socket.on("on language change", ({ languageUsed }) => {
-      setLanguage(languageUsed);
+      cambiarLang(languageUsed);
     });
 
-    socket.on("on code change", ({ code }) => {
+    socket.on("on code change", ({ code, fileName }) => {
+      agregarEditarVentana(fileName, code);
       setFetchedCode(code);
     });
 
