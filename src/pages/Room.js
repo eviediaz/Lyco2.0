@@ -60,7 +60,6 @@ const languagesAvailable = [
   "php"
 ];
 
-
 export const getTemas = (name) => {
   const temas = {
     githubDark,
@@ -88,9 +87,20 @@ export default function Room({ socket }) {
   const { roomId } = useParams();
   const [fetchedUsers, setFetchedUsers] = useState(() => []);
   const [fetchedCode, setFetchedCode] = useState(() => "");
-  const [language, setLanguage] = useState( getLangs('javascript') );
-  const [tema, setTema] = useState( getTemas("githubDark") );
-  
+  const [language, setLanguage] = useState(getLangs("javascript"));
+  const [tema, setTema] = useState(getTemas("githubDark"));
+
+  const [ventanas, setVentanas] = useState({
+    primero: "",
+  });
+
+  // Función para agregar o editar un elemento en el diccionario de ventanas
+  const agregarEditarVentana = (clave, valor) => {
+    setVentanas((prevDiccionario) => ({
+      ...prevDiccionario,
+      [clave]: valor,
+    }));
+  };
 
   function onChange(newValue) {
     setFetchedCode(newValue);
@@ -99,13 +109,13 @@ export default function Room({ socket }) {
   }
 
   function handleLanguageChange(e) {
-    setLanguage( getLangs(e.target.value) );
+    setLanguage(getLangs(e.target.value));
     socket.emit("update language", { roomId, languageUsed: e.target.value });
     socket.emit("syncing the language", { roomId: roomId });
   }
 
   function handleTemaChange(e) {
-    setTema( getTemas(e.target.value) )
+    setTema(getTemas(e.target.value));
   }
 
   function handleLeave() {
@@ -167,7 +177,7 @@ export default function Room({ socket }) {
               className="languageField"
               name="language"
               id="language"
-              value={ language.name }
+              value={language.name}
               onChange={handleLanguageChange}
             >
               {languagesAvailable.map((eachLanguage) => (
@@ -233,18 +243,15 @@ export default function Room({ socket }) {
           value={fetchedCode}
           // @ts-ignore
 
-          theme={ tema }
-          extensions={ language }
-
-          editable={ true }
-          autoFocus={ true }
-
+          theme={tema}
+          extensions={language}
+          editable={true}
+          autoFocus={true}
           placeholder="Aca escribe tu codigo"
-          onChange={ onChange }
-
+          onChange={onChange}
           style={{
-            maxWidth: '995px',
-            position: 'relative',
+            maxWidth: "995px",
+            position: "relative",
             zIndex: 999,
           }}
         />
