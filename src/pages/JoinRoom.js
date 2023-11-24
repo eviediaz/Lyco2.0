@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { generate } from 'randomstring';
 import { Toaster, toast } from "react-hot-toast";
 
 import "./JoinRoom.css";
 
 export default function JoinRoom() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [roomId, setRoomId] = useState(() => "");
   const [username, setUsername] = useState(() => "");
 
@@ -29,7 +29,7 @@ export default function JoinRoom() {
       return;
     }
 
-    navigate(`/room/${roomId}`, { state: { username } });
+    history.push(`/room/${roomId}`, { state: { username } });
   }
 
   function createRoomId(e) {

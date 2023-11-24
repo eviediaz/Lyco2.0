@@ -94,7 +94,6 @@ export default function SwipeableTemporaryDrawer() {
               <Menu />
           </IconButton>
           </Header>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
