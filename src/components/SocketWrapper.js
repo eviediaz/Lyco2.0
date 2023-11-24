@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 
 function addPropsToReactElement(element, props) {
@@ -25,12 +25,12 @@ export default function SocketWrapper({ children }) {
   );
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const history = useHistory();
   const { roomId } = useParams();
 
   useEffect(() => {
     function kickStrangerOut() {
-      navigate("/", { replace: true });
+      history.push("/", { replace: true });
       toast.error("No username provided");
     }
 
@@ -40,7 +40,7 @@ export default function SocketWrapper({ children }) {
           username: location.state.username,
         })
       : kickStrangerOut();
-  }, [socket, location.state, roomId, navigate]);
+  }, [socket, location.state, roomId, history]);
 
   return location.state && location.state.username ? (
     <div>{addPropsToChildren(children, { socket })}</div>

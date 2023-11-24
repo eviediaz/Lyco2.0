@@ -3,8 +3,9 @@ import { useStyles } from './style';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import { Menu, MenuItem, Avatar } from "@material-ui/core";
 import { Add, Apps } from "@material-ui/icons";
-import { CreateClass } from '../index';
+import { CreateClass, JoinClass } from '../index';
 import { useLocalContext } from '../../context/context';
+import { Link } from 'react-router-dom';
 
 const Header = ({children}) => {
     const classes = useStyles();
@@ -12,13 +13,17 @@ const Header = ({children}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
-    const { createClassDialog, setCreateClassDialog } = useLocalContext();
+    const { setCreateClassDialog, setJoinClassDialog, loggedInUser, logout } = useLocalContext();
 
     const handleCreate = () => {
         handleClose();
         setCreateClassDialog(true);
     }
 
+    const handleJoin = () => {
+        handleClose();
+        setJoinClassDialog(true);
+    };
 
     return (
         <div className={classes.root}>
@@ -30,9 +35,11 @@ const Header = ({children}) => {
                             src="/logo.png"
                             alt="Lyco"
                         />
-                        <Typography variant="h6" className={classes.title}>
-                            Lyco
-                        </Typography>
+                            <Typography variant="h6" className={classes.title}>
+                                <Link to="/">
+                                        Lyco
+                                </Link>
+                            </Typography>
                     </div>
                     <div className={classes.header__wrapper__right}>
                         <Add onClick={handleClick} className={classes.icon}/>
@@ -44,16 +51,17 @@ const Header = ({children}) => {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem>Join Class</MenuItem>
+                            <MenuItem onClick={handleJoin}>Join Class</MenuItem>
                             <MenuItem onClick = {handleCreate} >Create Class</MenuItem>
                         </Menu>
                         <div>
-                            <Avatar className={classes.icon}/>
+                            <Avatar onClick = {() => logout()} src= {loggedInUser?.photoURL} className={classes.icon}/>
                         </div>
                     </div>
                 </Toolbar>
             </AppBar>
             <CreateClass/>
+            <JoinClass/>
         </div>
     );
 };

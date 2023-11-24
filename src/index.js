@@ -3,9 +3,12 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { ContextProvider } from "./context/context";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 createRoot(document.getElementById('root')).render(
   <ContextProvider>
-    <App />
+    <StyledEngineProvider injectFirst>
+      <App />
+    </StyledEngineProvider>
   </ContextProvider>
 );

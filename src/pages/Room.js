@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Toaster, toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { generateColor } from "../utils";
 import "./Room.css";
 
@@ -84,7 +84,7 @@ const temasAvailable = [
 ];
 
 export default function Room({ socket }) {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { roomId } = useParams();
   const [fetchedUsers, setFetchedUsers] = useState(() => []);
   const [fetchedCode, setFetchedCode] = useState(() => "");
@@ -110,7 +110,7 @@ export default function Room({ socket }) {
 
   function handleLeave() {
     socket.disconnect();
-    !socket.connected && navigate("/", { replace: true, state: {} });
+    !socket.connected && history.push("/", { replace: true, state: {} });
   }
 
   function copyToClipboard(text) {

@@ -17,3 +17,8 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.homePageLogo {
+  height: 80px;
+  margin-bottom: 30px;
+}
