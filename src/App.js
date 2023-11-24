@@ -7,7 +7,7 @@ import JoinRoom from './pages/JoinRoom'
 import Room from './pages/Room';
 import SocketWrapper from './components/SocketWrapper';
 import Contact from './pages/Contact';
-import EditorHome from './pages/EditorHome';
+//import EditorHome from './pages/EditorHome';
 
 import { Drawer } from './components/index';
 import { StyledEngineProvider } from '@mui/material/styles';
@@ -23,7 +23,7 @@ function App() {
 
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />}></Route>
+                    <Route path="/" element={<JoinRoom />}></Route>
                     <Route path="/contact" element={<Contact />}></Route>
                     <Route path="/room" element={<JoinRoom />}></Route>
                     <Route path="/room/:roomId" element={ <SocketWrapper> <Room/> </SocketWrapper> }></Route>
